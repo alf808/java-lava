@@ -2,13 +2,13 @@
 
 ## Getting Setup
 
-> _tip_: this frontend is designed to work with [Flask-based Backend](../backend). It is recommended you stand up the backend first, test using Postman, and then the frontend should integrate smoothly.
+The frontend is designed to work with [Flask-based Backend](../backend). Stand up the backend first, test using Postman, and then the frontend should integrate smoothly.
 
 ### Installing Dependencies
 
 #### Installing Node and NPM
 
-This project depends on Nodejs and Node Package Manager (NPM). Before continuing, you must download and install Node (the download includes NPM) from [https://nodejs.com/en/download](https://nodejs.org/en/download/).
+This project depends on Nodejs and Node Package Manager (NPM). Download and install Node (the download includes NPM) from [https://nodejs.com/en/download](https://nodejs.org/en/download/).
 
 #### Installing Ionic Cli
 
@@ -21,8 +21,6 @@ This project uses NPM to manage software dependencies. NPM Relies on the package
 ```bash
 npm install
 ```
-
-> _tip_: **npm i** is shorthand for **npm install**
 
 ## Required Tasks
 
