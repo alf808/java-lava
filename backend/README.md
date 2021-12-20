@@ -1,4 +1,4 @@
-# Coffee Shop Backend
+# Java Lava Cafe Backend
 
 ## Getting Started
 

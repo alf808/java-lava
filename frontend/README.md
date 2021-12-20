@@ -1,4 +1,4 @@
-# Coffee Shop Frontend
+# Java Lava Cafe Frontend
 
 ## Getting Setup
 

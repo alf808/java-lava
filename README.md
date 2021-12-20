@@ -1,6 +1,6 @@
-# Coffee Shop Full Stack
+# Java Lava Cafe Full Stack
 
-## Full Stack Nano - IAM Final Project
+## Full Stack API auth - IAM Final Project
 
 A new digitally enabled cafe will be opened to order drinks, socialize, and study hard. It need helps setting up their menu experience.
 
