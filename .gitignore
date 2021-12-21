@@ -46,5 +46,4 @@ $RECYCLE.BIN/
 Thumbs.db
 UserInterfaceState.xcuserstate
 requirements.txt
-backend/src/auth/auth.py
 frontend/package-lock.json
