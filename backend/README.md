@@ -80,7 +80,7 @@ The `--reload` flag will detect file changes and restart the server automaticall
 
 ### Implement The Server
 
-There are `@TODO` comments throughout the `./backend/src`. We recommend tackling the files in order and from top to bottom:
+Examine the following files carefully to tailor this app for your needs.
 
 1. `./src/auth/auth.py`
 2. `./src/api.py`

@@ -11,9 +11,7 @@ This project demonstrates skills to create a full stack drink menu application. 
 3. Allow the shop baristas to see the recipe information.
 4. Allow the shop managers to create new drinks and edit existing drinks.
 
-## Tasks
-
-There are `@TODO` comments throughout the project. We recommend tackling the sections in order. Start by reading the READMEs in:
+## More READMEs
 
 1. [`./backend/`](./backend/README.md)
 2. [`./frontend/`](./frontend/README.md)
