@@ -94,6 +94,34 @@ def create_drink(jwt):
     returns status code 200 and json {"success": True, "drinks": drink} where drink an array containing only the updated drink
         or appropriate status code indicating reason for failure
 '''
+@app.route('/drinks/<int:id>', methods=['PATCH'])
+@requires_auth('patch:drinks')
+def update_drink(payload, id):
+    drink = Drink.query.get(id)
+    if not drink:
+        abort(404)
+        
+    try:
+        body = request.get_json()
+        if body.get('title'):
+            drink.title = body.get('title')
+        if body.get('recipe'):
+            drink.recipe = json.dumps(body.get('recipe'))
+        else:
+            raise ValidationError('Recipe is required.')
+#        drink.update()
+    except ValidationError as ve:
+        abort(422, description=ve)
+    # except Exception as e:
+    #     abort(422, description=e)
+    else:
+        json_obj = jsonify({
+            'success': True,
+            'drinks': [drink.long()]
+        })
+    finally:
+        print(body)
+    return json_obj
 
 '''
 @TODO implement endpoint
@@ -114,9 +142,9 @@ Example error handling for unprocessable entity
 @app.errorhandler(422)
 def unprocessable(error):
     return jsonify({
-        "success": False,
-        "error": 422,
-        "message": "unprocessable"
+        'success': False,
+        'error': 422,
+        'message': 'unprocessable'
     }), 422
 
 
