@@ -16,12 +16,11 @@ class ValidationError(Exception):
     pass
 
 '''
-@TODO uncomment the following line to initialize the datbase
+!! uncomment the following line to initialize the datbase
 !! NOTE THIS WILL DROP ALL RECORDS AND START YOUR DB FROM SCRATCH
 !! NOTE THIS MUST BE UNCOMMENTED ON FIRST RUN
-!! Running this function will add one
 '''
-db_drop_and_create_all()
+# db_drop_and_create_all()
 
 # ROUTES
 '''
@@ -41,8 +40,8 @@ def get_drinks():
 
 '''
 GET /drinks-detail endpoint:
-    require the 'get:drinks-detail' permission
-    returns status code 200 and json {"success": True, "drinks": drinks}
+require the 'get:drinks-detail' permission
+returns status code 200 and json {"success": True, "drinks": drinks}
 '''
 @app.route('/drinks-detail')
 @requires_auth('get:drinks-detail')
@@ -84,15 +83,10 @@ def create_drink(jwt):
     })
 
 '''
-@TODO implement endpoint
-    PATCH /drinks/<id>
-        where <id> is the existing model id
-        it should respond with a 404 error if <id> is not found
-        it should update the corresponding row for <id>
-        it should require the 'patch:drinks' permission
-        it should contain the drink.long() data representation
-    returns status code 200 and json {"success": True, "drinks": drink} where drink an array containing only the updated drink
-        or appropriate status code indicating reason for failure
+endpoint PATCH /drinks/<id>
+updates the corresponding row for <id>
+returns status code 200 and json {"success": True, "drinks": drink}
+where drink an array containing only the updated drink
 '''
 @app.route('/drinks/<int:id>', methods=['PATCH'])
 @requires_auth('patch:drinks')
@@ -100,20 +94,20 @@ def update_drink(payload, id):
     drink = Drink.query.get(id)
     if not drink:
         abort(404)
-        
+    body = request.get_json()
+    
     try:
-        body = request.get_json()
         if body.get('title'):
             drink.title = body.get('title')
         if body.get('recipe'):
             drink.recipe = json.dumps(body.get('recipe'))
         else:
             raise ValidationError('Recipe is required.')
-#        drink.update()
-    except ValidationError as ve:
+        drink.update()
+    except (ValidationError, AttributeError) as ve:
         abort(422, description=ve)
-    # except Exception as e:
-    #     abort(422, description=e)
+    except Exception as e:
+        abort(422, description=e)
     else:
         json_obj = jsonify({
             'success': True,
@@ -133,6 +127,12 @@ def update_drink(payload, id):
     returns status code 200 and json {"success": True, "delete": id} where id is the id of the deleted record
         or appropriate status code indicating reason for failure
 '''
+@app.route('/drinks/<int:id>', methods=['DELETE'])
+@requires_auth('delete:drinks')
+def delete_drink(payload, id):
+    pass
+
+
 
 # Error Handling
 '''
