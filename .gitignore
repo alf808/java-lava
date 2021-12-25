@@ -45,5 +45,4 @@ $RECYCLE.BIN/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
-requirements.txt
 frontend/package-lock.json
