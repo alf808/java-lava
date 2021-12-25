@@ -1,4 +1,4 @@
-/* @TODO replace with your variables
+/* local and AUTH0 variables
  * ensure all variables on this page match your project
  */
 
