@@ -5,7 +5,7 @@ from jose import jwt
 from urllib.request import urlopen
 
 
-AUTH0_DOMAIN = 'nemotico.us..auth0.com'
+AUTH0_DOMAIN = 'nemotico.us.auth0.com'
 ALGORITHMS = ['RS256']
 API_AUDIENCE = 'coffee'
 
@@ -19,9 +19,7 @@ class AuthError(Exception):
         self.error = error
         self.status_code = status_code
 
-
 ## Auth Header
-
 def get_token_auth_header():
     '''Get token from properly formed authorization header'''
     auth_header = request.headers.get('Authorization')

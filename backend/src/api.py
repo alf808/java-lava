@@ -11,6 +11,10 @@ app = Flask(__name__)
 setup_db(app)
 CORS(app)
 
+class ValidationError(Exception):
+    '''Inherit exception class to use for validation error'''
+    pass
+
 '''
 @TODO uncomment the following line to initialize the datbase
 !! NOTE THIS WILL DROP ALL RECORDS AND START YOUR DB FROM SCRATCH
@@ -21,12 +25,8 @@ db_drop_and_create_all()
 
 # ROUTES
 '''
-@TODO implement endpoint
-    GET /drinks
-        it should be a public endpoint
-        it should contain only the drink.short() data representation
-    returns status code 200 and json {"success": True, "drinks": drinks} where drinks is the list of drinks
-        or appropriate status code indicating reason for failure
+public endpoint GET /drinks: returns status code 200 and
+json {"success": True, "drinks": drinks} where drinks is the list of drinks
 '''
 @app.route('/drinks', methods=['GET','OPTIONS'])
 def get_drinks():
@@ -40,12 +40,9 @@ def get_drinks():
     })
 
 '''
-@TODO implement endpoint
-    GET /drinks-detail
-        it should require the 'get:drinks-detail' permission
-        it should contain the drink.long() data representation
-    returns status code 200 and json {"success": True, "drinks": drinks} where drinks is the list of drinks
-        or appropriate status code indicating reason for failure
+GET /drinks-detail endpoint:
+    require the 'get:drinks-detail' permission
+    returns status code 200 and json {"success": True, "drinks": drinks}
 '''
 @app.route('/drinks-detail')
 @requires_auth('get:drinks-detail')
@@ -59,15 +56,32 @@ def get_drinks_detail(jwt):
     })
 
 '''
-@TODO implement endpoint
-    POST /drinks
-        it should create a new row in the drinks table
-        it should require the 'post:drinks' permission
-        it should contain the drink.long() data representation
-    returns status code 200 and json {"success": True, "drinks": drink} where drink an array containing only the newly created drink
-        or appropriate status code indicating reason for failure
+endpoint POST /drinks create a new row in the drinks table
+returns status code 200 and json {"success": True, "drinks": drink}
+where drink an array containing only the newly created drink
 '''
+@app.route('/drinks', methods=['POST'])
+@requires_auth('post:drinks')
+def create_drink(jwt):
+    body = request.get_json()
+    title = body.get('title', 'Generic')
+    recipe = body.get('recipe', None)
 
+    try:
+        if not recipe:
+            raise ValidationError('Recipe is required')
+
+        drink = Drink(title=title, recipe=json.dumps(recipe))
+        drink.insert()
+    except ValidationError as ve:
+        abort(422, description=ve)
+    except Exception as e:
+        abort(422, description=e)
+
+    return jsonify({
+        'success': True,
+        'drinks': [drink.long()]
+    })
 
 '''
 @TODO implement endpoint
@@ -81,7 +95,6 @@ def get_drinks_detail(jwt):
         or appropriate status code indicating reason for failure
 '''
 
-
 '''
 @TODO implement endpoint
     DELETE /drinks/<id>
@@ -93,12 +106,10 @@ def get_drinks_detail(jwt):
         or appropriate status code indicating reason for failure
 '''
 
-
 # Error Handling
 '''
 Example error handling for unprocessable entity
 '''
-
 
 @app.errorhandler(422)
 def unprocessable(error):
