@@ -1,6 +1,6 @@
 # Java Lava Cafe Full Stack
 
-## Full Stack API auth - IAM Final Project
+## Full Stack API auth - Identity and Access Management Implementation
 
 A new digitally enabled cafe will be opened to order drinks, socialize, and study hard. It need helps setting up their menu experience.
 

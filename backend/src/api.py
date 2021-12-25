@@ -64,16 +64,16 @@ where drink an array containing only the newly created drink
 @requires_auth('post:drinks')
 def create_drink(jwt):
     body = request.get_json()
-    title = body.get('title', 'Generic')
-    recipe = body.get('recipe', None)
 
     try:
-        if not recipe:
+        title = body.get('title', 'Generic')
+        recipe = body.get('recipe', None)
+        if not any(body.values()) or not recipe:
             raise ValidationError('Recipe is required')
 
         drink = Drink(title=title, recipe=json.dumps(recipe))
         drink.insert()
-    except ValidationError as ve:
+    except (ValidationError, AttributeError) as ve:
         abort(422, description=ve)
     except Exception as e:
         abort(422, description=e)
