@@ -113,26 +113,29 @@ def update_drink(payload, id):
             'success': True,
             'drinks': [drink.long()]
         })
-    finally:
-        print(body)
     return json_obj
 
 '''
-@TODO implement endpoint
-    DELETE /drinks/<id>
-        where <id> is the existing model id
-        it should respond with a 404 error if <id> is not found
-        it should delete the corresponding row for <id>
-        it should require the 'delete:drinks' permission
-    returns status code 200 and json {"success": True, "delete": id} where id is the id of the deleted record
-        or appropriate status code indicating reason for failure
+endpoint DELETE /drinks/<id>
+delete the corresponding row for <id>
+returns status code 200 and json {"success": True, "delete": id}
 '''
 @app.route('/drinks/<int:id>', methods=['DELETE'])
 @requires_auth('delete:drinks')
 def delete_drink(payload, id):
-    pass
-
-
+    drink = Drink.query.get(id)
+    if not drink:
+        abort(404)
+    try:
+        drink.delete()
+    except Exception as e:
+        abort(422, description=e)
+    else:
+        json_obj = jsonify({
+            'success': True,
+            'delete': id
+        })
+    return json_obj
 
 # Error Handling
 '''
@@ -146,6 +149,7 @@ def unprocessable(error):
         'error': 422,
         'message': 'unprocessable'
     }), 422
+
 
 
 '''
