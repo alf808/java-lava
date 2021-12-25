@@ -35,7 +35,7 @@ def get_token_auth_header():
         raise AuthError({
             'code': 'invalid_header',
             'description': 'Authorization header is malformed.'
-        })
+        }, 401)
 
     return parts[1]
 
@@ -97,7 +97,7 @@ def verify_decode_jwt(token):
         except jwt.JWTClaimsError:
             raise AuthError({
                 'code': 'invalid_claims',
-                'description': 'Incorrect claims. Please, check the audience and issuer.'
+                'description': 'Incorrect claims. Check audience and issuer.'
             }, 401)
         except Exception:
             raise AuthError({
