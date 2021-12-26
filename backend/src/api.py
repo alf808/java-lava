@@ -95,7 +95,7 @@ def update_drink(payload, id):
     if not drink:
         abort(404)
     body = request.get_json()
-    
+
     try:
         if body.get('title'):
             drink.title = body.get('title')

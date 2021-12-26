@@ -28,7 +28,7 @@ def get_token_auth_header():
             'code': 'authorization_header_missing',
             'description': 'Authorization header is expected.'
         }, 401)
-    
+
     parts = auth_header.split()
     # check if header is properly formed
     if parts[0].lower() != 'bearer' or len(parts) == 1 or len(parts) > 2:
@@ -52,7 +52,7 @@ def check_permissions(permission, payload):
             'code': 'unauthorized',
             'description': 'Permission not granted.'
         }, 403)
-    
+
     return True
 
 # code from: https://github.com/udacity/FSND/blob/master/BasicFlaskAuth
