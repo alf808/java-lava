@@ -13,13 +13,6 @@ This project demonstrates skills to create a full stack drink menu application. 
 
 ## Getting Started: prerequisites and local development
 
-1. [`./backend/`](./backend/README.md)
-2. [`./frontend/`](./frontend/README.md)
-
-## About the Stack
-
-The full stack application is designed with some key functional areas:
-
 ### Backend: Installing Dependencies
 
 #### Python 3.9.7
